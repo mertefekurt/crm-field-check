@@ -6,12 +6,12 @@
 
 Audit CRM fields for PII, ownership, and stale custom fields. It solves review drift by turning plain-text plans into deterministic CI-friendly findings.
 
-## Input Contract 28
+## Input Contract
 
 Accepts CRM field inventory. The reader supports plain text, JSON, JSONL, and CSV so the
 tool can fit into scripts, CI jobs, and review exports.
 
-## CLI Walkthrough 28
+## CLI Walkthrough
 
 ```bash
 python -m pip install -e ".[dev]"
@@ -20,7 +20,7 @@ crm-field-check examples/sample.txt --json --fail-on medium
 python -m crm_field_check --help
 ```
 
-## Rule Surface 28
+## Rule Surface
 
 | Rule | Severity | Meaning |
 |---|---:|---|
@@ -28,7 +28,7 @@ python -m crm_field_check --help
 | `unknown-owner` | medium | field owner missing |
 | `stale-field` | low | field may be stale |
 
-## Validation Notes 28
+## Validation Notes
 
 ```bash
 ruff check .
