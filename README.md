@@ -1,40 +1,33 @@
 # Crm Field Check
 
-Audit CRM fields for PII, ownership, and stale custom fields. This repo keeps the work close to the terminal: clear input, predictable output, and no service to babysit.
+![Crm Field Check cover](assets/readme-cover.svg)
 
-<img src="assets/readme-cover.svg" alt="Crm Field Check cover" width="100%" />
+Audit CRM fields for PII, ownership, and stale custom fields.
 
-## Review checklist
+## Before the fix
 
-- [ ] PII field detected (`pii-field`, high)
-- [ ] field owner missing (`unknown-owner`, medium)
-- [ ] field may be stale (`stale-field`, low)
+```text
+risky: field personal_email pii true owner unknown last_used 2023
+clean: field plan_name pii false owner salesops last_used 2026
+```
 
-## Command path
+## Checks in plain language
+
+| Signal | Level | What it flags | Fix direction |
+| --- | --- | --- | --- |
+| `pii-field` | high | PII field detected | review access and retention |
+| `unknown-owner` | medium | field owner missing | assign owner |
+| `stale-field` | low | field may be stale | archive or confirm need |
+
+## How the check reads
+
+![Workflow diagram](assets/readme-diagram.svg)
+
+## Local check
 
 ```bash
 git clone https://github.com/mertefekurt/crm-field-check.git
 cd crm-field-check
-python -m venv .venv
-source .venv/bin/activate
 python -m pip install -e ".[dev]"
 crm-field-check examples/sample.txt
-crm-field-check examples/sample.txt --json
-```
-
-## Fixture worth keeping
-
-```text
-field personal_email pii true owner unknown last_used 2023
-```
-
-## Files I look at first
-
-```text
-.github/        CI workflow
-examples/       sample inputs
-src/            package source
-tests/          test coverage
-.gitignore      project file
-pyproject.toml  package metadata
 ```
