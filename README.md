@@ -1,41 +1,34 @@
-<img src="assets/readme-cover.svg" alt="Crm Field Check cover" width="100%" />
-
 # Crm Field Check
 
-Audit CRM fields for PII, ownership, and stale custom fields.
+Audit CRM fields for PII, ownership, and stale custom fields. This repo keeps the work close to the terminal: clear input, predictable output, and no service to babysit.
 
-![stack](https://img.shields.io/badge/stack-Python-dc2626?style=flat-square) ![python](https://img.shields.io/badge/python-3.11-7c3aed?style=flat-square) ![license](https://img.shields.io/badge/license-MIT-0891b2?style=flat-square) ![ci](https://img.shields.io/badge/ci-GitHub%20Actions-b45309?style=flat-square)
+<img src="assets/readme-cover.svg" alt="Crm Field Check cover" width="100%" />
 
-## Workflow
+## Review checklist
 
-1. Collect the review notes or exported records.
-2. Run `crm-field-check` against the file.
-3. Read the findings in Markdown, or switch to JSON for automation.
-4. Fail CI only at the severity level you care about.
+- [ ] PII field detected (`pii-field`, high)
+- [ ] field owner missing (`unknown-owner`, medium)
+- [ ] field may be stale (`stale-field`, low)
 
-## Checks
-
-| Rule | Severity | What it catches |
-| --- | --- | --- |
-| `pii-field` | high | PII field detected |
-| `unknown-owner` | medium | field owner missing |
-| `stale-field` | low | field may be stale |
-
-## Command line
+## Command path
 
 ```bash
+git clone https://github.com/mertefekurt/crm-field-check.git
+cd crm-field-check
+python -m venv .venv
+source .venv/bin/activate
 python -m pip install -e ".[dev]"
 crm-field-check examples/sample.txt
-crm-field-check examples/sample.txt --json --fail-on medium
+crm-field-check examples/sample.txt --json
 ```
 
-## Sample risky input
+## Fixture worth keeping
 
 ```text
 field personal_email pii true owner unknown last_used 2023
 ```
 
-## Project shape
+## Files I look at first
 
 ```text
 .github/        CI workflow
